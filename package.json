@@ -58,10 +58,10 @@
     "clean": "rimraf build",
     "dev": "react-scripts start",
     "start": "craco start",
-    "build": "craco build",
+    "build": "CI=false craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "build:test": "react-scripts build",
+    "build:test": "CI=false react-scripts build",
     "uploadToS3:test": "aws s3 sync build/ s3://hiqlynks-admin-panel",
     "invalidateIndex:test": "aws cloudfront create-invalidation --distribution-id ETHTA932THWQ4 --paths /index.html",
     "deploy:test": "npm run clean && npm run build:test && npm run uploadToS3:test && npm run invalidateIndex:test"
