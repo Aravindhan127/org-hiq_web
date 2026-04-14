@@ -21,7 +21,7 @@ const DefaultPalette = (mode, skin, themeColor) => {
       darkBg: '#28243D',
       lightBg: '#F4F5FA',
       // primaryGradient kept for components that reference it, but now deep navy
-      primaryGradient: 'linear-gradient(90deg, #1E2A78 0%, #1E2A78 100%)',
+      primaryGradient: 'linear-gradient(90deg, #682C8B 0%, #E51E79 100%)',
       bodyBg: mode === 'light' ? '#F4F5FA' : '#28243D',
       tableHeaderBg: mode === 'light' ? '#F9FAFC' : '#3D3759'
     },
@@ -31,16 +31,13 @@ const DefaultPalette = (mode, skin, themeColor) => {
     },
     mode: mode,
     primary: {
-      light: '#2E3FA3',
-      main: '#1E2A78',
-      dark: '#16205C',
+      light: '#8656a2',
+      main: '#682C8B',
+      dark: '#481e61',
       contrastText: '#FFF',
     },
     secondary: {
-      light: '#6C7BD3',
-      main: '#3D4BB3',
-      dark: '#2B3786',
-      contrastText: '#FFF'
+      light: '#E51E79', main: '#682C8B', dark: '#682C8B', contrastText: '#FFF'
     },
     success: {
       light: '#6AD01F',
@@ -83,15 +80,15 @@ const DefaultPalette = (mode, skin, themeColor) => {
       A700: '#303030'
     },
     neutral: {
-      90: '#0E163F',
-      80: '#142057',
-      70: '#1A2A6F',
-      60: '#23368F',
-      50: '#2E45B0',
-      40: '#6C7BD3',
-      30: '#AAB6F0',
-      20: '#DCE2FA',
-      10: '#F5F7FF',
+      90: '#150425',
+      80: '#332640',
+      70: '#574766',
+      60: '#826C99',
+      50: '#B8A3CC',
+      40: '#C9B9DA',
+      30: '#DBD0E6',
+      20: '#F5EFFA',
+      10: '#FCFCFD',
     },
     text: {
       primary: `rgba(${mainColor}, 0.87)`,
