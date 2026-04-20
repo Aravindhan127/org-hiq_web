@@ -13,12 +13,15 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import PerfectScrollbarComponent from 'react-perfect-scrollbar';
 import CustomChip from 'src/@core/components/mui/chip';
 import CustomAvatar from 'src/@core/components/mui/avatar';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+import BellIcon from "../../../../../src/assets/images/bell.svg"
 import { axiosInstance } from 'src/network/adapter';
 import { ApiEndPoints } from 'src/network/endpoints';
 import { toastError, toastSuccess } from 'src/utils/utils';
 import { Link, useNavigate } from 'react-router-dom';
 import moment from 'moment';
+import axios from 'axios';
+import authConfig from '../../../../configs/auth'
 import { DefaultPaginationSettings } from 'src/constants/general.const';
 
 const Menu = styled(MuiMenu)(({ theme }) => ({
@@ -78,6 +81,7 @@ const MenuItemSubtitle = styled(Typography)({
 })
 
 const NotificationDropdown = props => {
+  const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName);
   const [loading, setLoading] = useState(false);
   const [notificationData, setNotificationData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -108,15 +112,14 @@ const NotificationDropdown = props => {
   };
 
 
-
   const fetchUnreadCount = () => {
     setLoading(true);
 
     axiosInstance
       .get(ApiEndPoints.NOTIFICATION.getUnreadCount)
       .then((response) => {
-        console.log("count", response?.data?.unreadCount)
-        setUnreadCount(response?.data?.unreadCount)
+        console.log("count", response?.data?.unreadNotificationCount)
+        setUnreadCount(response?.data?.unreadNotificationCount)
       })
       .catch((error) => {
         toastError(error);
@@ -126,6 +129,12 @@ const NotificationDropdown = props => {
       });
 
   };
+
+
+  useEffect(() => {
+    fetchData();
+    fetchUnreadCount();
+  }, []);
 
   const handleMarkAsRead = () => {
     setLoading(true);
@@ -146,30 +155,6 @@ const NotificationDropdown = props => {
       });
   };
 
-
-  useEffect(() => {
-    fetchData();
-    fetchUnreadCount();
-  }, []);
-
-  const onSubmit = (id) => {
-    setLoading(true);
-    let payload = {
-      isRead: true,
-    };
-    axiosInstance
-      .patch(ApiEndPoints.NOTIFICATION.edit(id), payload)
-      .then((response) => {
-        // fetchData();
-      })
-      .catch((error) => {
-        toastError(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
-
   const { settings } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const hidden = useMediaQuery(theme => theme.breakpoints.down('lg'));
@@ -178,6 +163,7 @@ const NotificationDropdown = props => {
   const handleDropdownOpen = event => {
     setAnchorEl(event.currentTarget);
   };
+
 
   const handleDropdownClose = () => {
     setAnchorEl(null);
@@ -190,15 +176,15 @@ const NotificationDropdown = props => {
       return <PerfectScrollbar options={{ wheelPropagation: false, suppressScrollX: true }}>{children}</PerfectScrollbar>;
     }
   };
-  console.log("FF", notificationData)
+  console.log("notificationData", notificationData)
   return (
     <Fragment>
       <IconButton color='inherit' aria-haspopup='true' onClick={handleDropdownOpen} aria-controls='customized-menu'>
-        <Badge
-          badgeContent={unreadCount}
-          color='secondary'
-        >
-          <NotificationsActiveIcon />
+        <Badge badgeContent={unreadCount} color='secondary'>
+          <Box sx={{ backgroundColor: 'background.paper', borderRadius: "8px", padding: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {/* <NotificationsNoneOutlinedIcon /> */}
+            <img src={BellIcon} style={{ width: "24px", height: "24px" }} />
+          </Box>
         </Badge>
       </IconButton>
 
@@ -231,15 +217,60 @@ const NotificationDropdown = props => {
             </Box>
           ) : (
             notificationData?.map(notification => (
-              <MenuItem key={notification._id} onClick={() => { onSubmit(notification._id); handleDropdownClose(); }}>
+              <MenuItem key={notification._id}
+                onClick={() => { handleDropdownClose() }}
+                sx={{
+                  backgroundColor: !notification.isRead ? '#e0c0fd6b' : 'transparent',
+                  '&:hover': {
+                    backgroundColor: !notification.isRead ? '#4e3f5d' : 'action.hover',
+                  },
+                }}
+              >
                 <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                  <Avatar alt={notification?.orgDetail?.orgName} src={notification?.orgDetail?.orgName} />
+                  <Avatar alt={notification?.userData?.appUser?.firstName} src={notification?.userData?.appUser?.firstName} />
                   <Box sx={{ mx: 4, flex: '1 1', display: 'flex', overflow: 'hidden', flexDirection: 'column' }}>
-                    <MenuItemTitle>{notification?.orgDetail?.orgName} </MenuItemTitle>
-                    <MenuItemSubtitle variant='body2'> {notification?.notificationType === 'completeOrgProfile' ? 'User Profile has been completed' : null}</MenuItemSubtitle>
+                    {/* <MenuItemTitle>{ notification?.userData?.appUser?.firstName} {notification?.userData?.appUser?.lastName}</MenuItemTitle> */}
+                    <MenuItemTitle>
+                      {(() => {
+                        const { notificationType, notificationData } = notification || {};
+                        const userName = notificationData?.collegeUser?.appUser?.firstName || notificationData?.orgUser?.appUser?.firstName;
+
+                        switch (notificationType) {
+                          case "termsPolicyUpdate":
+                            return "Terms and Policy Updated";
+                          case "privacyUpdate":
+                            return "Privacy Updated";
+                          case "collegeUserRegister":
+                            return "User Registered";
+                          case "loungeCreated":
+                            return "Lounge Created";
+                          case "loungeAddedToFavList":
+                            return "Lounge Added to Favourites";
+                          case "followLounge":
+                            return `${userName} Started Following You`;
+                          case "eventBookByUser":
+                            return `Event has been booked`;
+                          case "closedLounge":
+                            return `Lounge Has Been Closed`;
+                          case "addedCommentInYourLounge":
+                            return `${userName} Commented on your lounge`;
+                          default:
+                            return "New Notification"; // Default case to prevent empty rendering
+                        }
+                      })()}
+                    </MenuItemTitle>
+
+                    <MenuItemSubtitle variant='body2'> {notification?.notificationType === 'collegeUserRegister' || notification?.notificationType === 'organisationUserRegister'
+                      ? 'User has been registered successfully'
+                      : null}
+                    </MenuItemSubtitle>
+
+                    <MenuItemSubtitle variant='body2'> {notification?.notificationType === 'pollcreated' || notification?.notificationType === 'loungeCreated'
+                      ? 'Lounge has been Created!'
+                      : null}</MenuItemSubtitle>
                   </Box>
                   <Typography variant='caption' sx={{ color: 'text.disabled' }}>
-                    {moment(notification.createdAt).format('DD-MM-YYYY')}
+                    {moment(notification?.createdAt).format('DD-MM-YYYY')}
                   </Typography>
                 </Box>
               </MenuItem>

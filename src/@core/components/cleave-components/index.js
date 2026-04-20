@@ -11,7 +11,7 @@ export function CleaveNumberInput(props) {
             options={{
                 ...(prefix && { prefix: prefix }),
                 numeral: true,
-                numeralThousandsGroupStyle: 'thousand',
+                numeralThousandsGroupStyle: 'none',
                 numeralDecimalScale: 4,
                 numeralPositiveOnly: true,
             }}
@@ -47,7 +47,7 @@ export function CleaveNumberInputPhone(props) {
         <Cleave
             ref={inputRef}
             options={{
-                blocks: [12],
+                blocks: [6],
                 numericOnly: true,
                 ...(prefix && { prefix: prefix }),
             }}

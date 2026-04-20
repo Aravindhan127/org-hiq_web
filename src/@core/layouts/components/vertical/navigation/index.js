@@ -124,9 +124,11 @@ const Navigation = props => {
         ? beforeVerticalNavMenuContent(props)
         : null}
       {(beforeVerticalNavMenuContentPosition === 'static' || !beforeVerticalNavMenuContent) && (
-        <StyledBoxForShadow ref={shadowRef} sx={{ background: shadowBgColor() }} />
+        <StyledBoxForShadow ref={shadowRef}
+        //  sx={{ background: shadowBgColor() }} 
+        />
       )}
-      <Box sx={{ position: 'relative', overflow: 'hidden', pt: !navCollapsed || (navCollapsed && navHover) ? 3 : 1, }}>
+      <Box sx={{ position: 'relative', overflow: 'hidden', pt: !navCollapsed || (navCollapsed && navHover) ? 4.5 : 1.25, }}>
         <ScrollWrapper
           containerRef={ref => handleInfiniteScroll(ref)}
           {...(hidden
@@ -151,8 +153,8 @@ const Navigation = props => {
                 pt: 0,
                 transition: 'padding .25s ease',
                 '& > :first-of-type': { mt: '0' },
-                pr: !navCollapsed || (navCollapsed && navHover) ? 3 : 1,
-                pl: !navCollapsed || (navCollapsed && navHover) ? 3 : 1,
+                pr: !navCollapsed || (navCollapsed && navHover) ? 4.5 : 1.25,
+                pl: !navCollapsed || (navCollapsed && navHover) ? 4.5 : 1.25,
               }}
             >
               <VerticalNavItems

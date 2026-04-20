@@ -5,10 +5,6 @@ const Chip = theme => {
   return {
     MuiChip: {
       styleOverrides: {
-        root: {
-          borderRadius: 14,
-          fontWeight: 600,
-        },
         outlined: {
           '&.MuiChip-colorDefault': {
             borderColor: `rgba(${theme.palette.customColors.main}, 0.22)`

@@ -7,12 +7,12 @@ export const API_BASE_URL = "http://localhost:4003"
     : "https://api.hiqlynks.com";
 
 export const VELTECH_BASE_URL = ENV === "LOCAL"
-    ? "http://localhost:4003"   // your local Veltech API
+    ? "http://localhost:3001"   // your local subAdmin frontend
     : "https://veltech-alumni.hiqlynks.com";
 
 // export const MEDIA_URL = "https://d1hj3r7039erwq.cloudfront.net"
 export const ApiEndPoints = {
-       AUTH: {
+    AUTH: {
         login: `${API_BASE_URL}/public/api/v1/admin/login`,
         me: `${API_BASE_URL}/api/v1/admin/get-profile`,
         forgot: `${API_BASE_URL}/public/api/v1/admin/forgot-password-request`,

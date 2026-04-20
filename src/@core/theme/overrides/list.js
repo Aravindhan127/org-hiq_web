@@ -34,17 +34,6 @@ const List = theme => {
           color: theme.palette.text.primary
         }
       }
-    },
-    MuiListItemButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: 12,
-          '&.Mui-selected': {
-            backgroundColor: theme.palette.primary.main,
-            color: theme.palette.primary.contrastText,
-          }
-        }
-      }
     }
   }
 }

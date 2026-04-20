@@ -9,7 +9,7 @@ const DefaultPalette = (mode, skin, themeColor) => {
     } else if (skin === 'bordered' && mode === 'dark') {
       return '#312D4B';
     } else if (mode === 'light') {
-      return '#F5F4F9';
+      return '#FDFDFD';
     } else return '#28243D';
   };
 
@@ -20,7 +20,7 @@ const DefaultPalette = (mode, skin, themeColor) => {
       light: lightColor,
       darkBg: '#28243D',
       lightBg: '#F4F5FA',
-      // primaryGradient kept for components that reference it, but now deep navy
+      // primaryGradient: 'linear-gradient(90deg, #D4145A 0%, #FBB03B 100%)',
       primaryGradient: 'linear-gradient(90deg, #682C8B 0%, #E51E79 100%)',
       bodyBg: mode === 'light' ? '#F4F5FA' : '#28243D',
       tableHeaderBg: mode === 'light' ? '#F9FAFC' : '#3D3759'
@@ -31,13 +31,16 @@ const DefaultPalette = (mode, skin, themeColor) => {
     },
     mode: mode,
     primary: {
-      light: '#8656a2',
-      main: '#682C8B',
-      dark: '#481e61',
+      light: '#8656a2', // Solid fallback for icons, text
+      main: '#682C8B', // Solid fallback for buttons
+      dark: '#481e61', // Solid fallback for hover states
       contrastText: '#FFF',
     },
     secondary: {
-      light: '#E51E79', main: '#682C8B', dark: '#682C8B', contrastText: '#FFF'
+      light: '#E51E79',
+      main: '#682C8B',
+      dark: '#682C8B',
+      contrastText: '#FFF'
     },
     success: {
       light: '#6AD01F',

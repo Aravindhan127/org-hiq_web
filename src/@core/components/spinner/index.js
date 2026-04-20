@@ -15,16 +15,7 @@ const FallbackSpinner = () => {
         justifyContent: 'center'
       }}
     >
-      <Box
-                     component="img"
-                     src={Logo}
-                     alt="Logo"
-                     sx={{
-                       width: { xs: '100px', sm: '130px', md: '160px' }, // responsive
-                       height: 'auto',
-                       borderRadius: '12px', 
-                     }}
-                   />
+      <img src={Logo} />
       <CircularProgress disableShrink sx={{ mt: 6 }} />
     </Box>
   )

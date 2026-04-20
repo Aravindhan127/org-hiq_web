@@ -89,6 +89,11 @@ const Typography = theme => {
       fontStyle: 'normal',
       lineHeight: '24px',
     },
+    "fm-h7": {
+      fontSize: '24px',
+      fontStyle: 'normal',
+      lineHeight: '32px',
+    },
     "fm-p1": {
       fontSize: '18px',
       fontStyle: 'normal',
@@ -99,10 +104,11 @@ const Typography = theme => {
       fontStyle: 'normal',
       lineHeight: '24px',
     },
+
     "fm-p3": {
-      fontSize: '14px',
+      fontSize: '15px',
       fontStyle: 'normal',
-      lineHeight: '22px',
+      lineHeight: '15px',
     },
     "fm-p4": {
       fontSize: '13px',
@@ -118,6 +124,11 @@ const Typography = theme => {
       fontSize: '10px',
       fontStyle: 'normal',
       lineHeight: '12px',
+    },
+    "fm-p7": {
+      fontSize: '14px',
+      fontStyle: 'normal',
+      lineHeight: '23px',
     },
   }
 }

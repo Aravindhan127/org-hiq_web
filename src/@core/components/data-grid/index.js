@@ -57,12 +57,15 @@ const CustomDataGrid = ({
     onSelectionModelChange,
     checkboxSelection,
     filterModel,
+    hideToolBarEvent = false,
+    nofilter = false,
     ...restProps
 }) => {
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(DefaultPaginationSettings.ROWS_PER_PAGE)
     const [sortModel, setSortModel] = useState([{ field: 'createdAt', sort: 'desc' }])
     const [selectionModel, setSelectionModel] = useState([])
+
     useEffect(() => {
         if (fetchPageData) {
             fetchPageData({
@@ -71,18 +74,14 @@ const CustomDataGrid = ({
             })
         }
     }, [page, pageSize, fetchPageData])
-    // const handleSelectionChange = (newSelection) => {
-    //   setSelectionModel(newSelection);
-    //   if (onSelectionModelChange) {
-    //     onSelectionModelChange(newSelection);
-    //   }
-    // };
+
     const CustomToolbar = () => (
         <GridToolbarContainer sx={{ display: "flex", justifyContent: "flex-end", marginBottom: "10px", gap: 3 }}>
             <GridToolbarQuickFilter debounceMs={500} />
             <GridToolbarFilterButton />
         </GridToolbarContainer>
     );
+
     return (
         <DataGrid
             pagination
@@ -93,7 +92,7 @@ const CustomDataGrid = ({
             rows={rows}
             columns={columns.map(col => ({
                 ...col,
-                disableColumnMenu: false,  // Ensure column menu is always visible
+                disableColumnMenu: nofilter || col.disableColumnMenu,
                 headerClassName: 'sort-header',
             }))}
             pageSizeOptions={DefaultPaginationSettings.ROWS_PER_PAGE_OPTIONS}
@@ -120,11 +119,10 @@ const CustomDataGrid = ({
             getRowId={ID}
             {...overrideConfigs}
             slots={{
-                toolbar: CustomToolbar,
+                toolbar: hideToolBarEvent ? undefined : CustomToolbar,
                 loadingOverlay: CustomLoadingOverlay,
                 noRowsOverlay: CustomNoRowsOverlay,
             }}
-            // slots={{ toolbar: GridToolbar }}
             sx={{
                 '--DataGrid-overlayHeight': '500px',
                 '.MuiDataGrid-iconButtonContainer': {
@@ -133,7 +131,7 @@ const CustomDataGrid = ({
                 '.MuiDataGrid-sortIcon': {
                     opacity: 'inherit !important',
                     color: '#303036'
-                }
+                },
             }}
             onCellClick={({ field, row }) => handleCellClick && handleCellClick({ field, row })}
             getCellClassName={params => {

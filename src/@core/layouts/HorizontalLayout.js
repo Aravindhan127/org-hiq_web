@@ -63,14 +63,14 @@ const HorizontalLayout = props => {
     settings,
     scrollToTop,
     saveSettings,
-    horizontalNavMenuContent: userHorizontalNavMenuContent 
+    horizontalNavMenuContent: userHorizontalNavMenuContent
   } = props
 
   // ** Vars
   const { skin, appBar, navHidden, appBarBlur, contentWidth } = settings
 
   return (
-    <HorizontalLayoutWrapper className='layout-wrapper' >
+    <HorizontalLayoutWrapper className='layout-wrapper'>
       <AppBar
         color='default'
         elevation={skin === 'bordered' ? 0 : 3}
@@ -139,7 +139,7 @@ const HorizontalLayout = props => {
       >
         {children}
       </ContentWrapper>
-
+      <Footer {...props} />
       <DatePickerWrapper sx={{ zIndex: 11 }}>
         <Box id='react-datepicker-portal'></Box>
       </DatePickerWrapper>

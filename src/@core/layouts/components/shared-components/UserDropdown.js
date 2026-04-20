@@ -23,9 +23,10 @@ import AccountOutline from 'mdi-material-ui/AccountOutline'
 import MessageOutline from 'mdi-material-ui/MessageOutline'
 import HelpCircleOutline from 'mdi-material-ui/HelpCircleOutline'
 import UserIcon from '../../../../assets/images/user.png'
-
+import KeyIcon from '@mui/icons-material/Key';
 // ** Context
 import { useAuth } from 'src/hooks/useAuth'
+import DialogChangePassword from 'src/views/dialog/DialogChangePassword'
 
 // ** Styled Components
 const BadgeContentSpan = styled('span')(({ theme }) => ({
@@ -42,14 +43,19 @@ const UserDropdown = props => {
 
   // ** States
   const [anchorEl, setAnchorEl] = useState(null)
+  const [openChangePasswordDialog, setOpenChangePasswordDialog] = useState(false);
 
   // ** Hooks
   const navigate = useNavigate()
   const { logout, user } = useAuth()
-
+  console.log("user", user)
   // ** Vars
   const { direction } = settings
 
+  const toggleChangePasswordDialog = () => {
+    handleDropdownClose();
+    setOpenChangePasswordDialog(!openChangePasswordDialog);
+  };
   const handleDropdownOpen = event => {
     setAnchorEl(event.currentTarget)
   }
@@ -139,15 +145,21 @@ const UserDropdown = props => {
             </Box>
           </Box>
         </Box>
-
         <Divider sx={{ mt: 0, mb: 1 }} />
-        {/* <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose('/user-profile/profile/')}>
+        <MenuItem
+          sx={{ py: 2 }}
+          onClick={toggleChangePasswordDialog}
+        >
+          <KeyIcon sx={{ mr: 2, fontSize: '1.375rem', color: 'text.secondary' }} />
+          Change Password
+        </MenuItem>
+        {/* <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose('/profile')}>
           <Box sx={styles}>
             <AccountOutline sx={{ mr: 2 }} />
             Profile
           </Box>
-        </MenuItem>
-        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose('/apps/email')}>
+        </MenuItem> */}
+        {/* <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose('/apps/email')}>
           <Box sx={styles}>
             <EmailOutline sx={{ mr: 2 }} />
             Inbox
@@ -177,13 +189,18 @@ const UserDropdown = props => {
             <HelpCircleOutline sx={{ mr: 2 }} />
             FAQ
           </Box>
-        </MenuItem>
-        <Divider /> */}
+        </MenuItem> */}
+        <Divider />
         <MenuItem sx={{ py: 2 }} onClick={handleLogout}>
           <LogoutVariant sx={{ mr: 2, fontSize: '1.375rem', color: 'text.secondary' }} />
           Logout
         </MenuItem>
       </Menu>
+      <DialogChangePassword
+        open={openChangePasswordDialog}
+        toggle={toggleChangePasswordDialog}
+      />
+
     </Fragment>
   )
 }

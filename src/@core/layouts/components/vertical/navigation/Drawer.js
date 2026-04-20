@@ -108,9 +108,7 @@ const Drawer = props => {
           ...drawerColor(),
           ...drawerBgColor(),
           ...(!hidden && navCollapsed && navHover ? { boxShadow: 9 } : {}),
-          borderRight: navigationBorderWidth === 0 ? 0 : `${navigationBorderWidth}px solid ${theme.palette.divider}`,
-          backgroundColor: theme.palette.common.white,
-          p: 1.5
+          borderRight: navigationBorderWidth === 0 ? 0 : `${navigationBorderWidth}px solid ${theme.palette.divider}`
         }
       }}
     >

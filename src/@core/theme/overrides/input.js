@@ -66,9 +66,9 @@ const input = theme => {
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          borderRadius: 12,
+          borderRadius: 10,
           '&:hover:not(.Mui-focused):not(.Mui-disabled) .MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.palette.primary.main
+            borderColor: `rgba(${theme.palette.customColors.main}, 0.32)`
           },
           '&:hover.Mui-error .MuiOutlinedInput-notchedOutline': {
             borderColor: theme.palette.error.main

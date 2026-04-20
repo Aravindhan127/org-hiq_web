@@ -14,12 +14,16 @@ const DataGrid = theme => {
           paddingLeft: `${theme.spacing(3.25)} !important`
         },
         columnHeaders: {
-          backgroundColor: `${theme.palette.primary.dark} !important`,
-          borderRadius: '12px 12px 0 0',
-          color: `${theme.palette.common.white} !important`
+          // maxHeight: '54px !important',
+          // minHeight: '54px !important',
+          // lineHeight: '24px !important',
+          // backgroundColor: theme.palette.customColors.tableHeaderBg
+          backgroundColor: '#9c27b026 !important',
+          borderRadius: '12px'
         },
         columnHeader: {
-          color: `${theme.palette.common.white} !important`,
+          // height: '54px',
+          color: '#574766 !important',
           '&:not(.MuiDataGrid-columnHeaderCheckbox)': {
             padding: theme.spacing(4),
             '&:first-of-type': {
@@ -36,15 +40,21 @@ const DataGrid = theme => {
         },
         columnHeaderTitleContainer: {
           padding: 0,
-          color: `${theme.palette.common.white} !important`,
+          color: '#574766 !important',
+
         },
         columnHeaderTitle: {
-          color: `${theme.palette.common.white} !important`,
-          fontSize: '0.8125rem',
-          fontWeight: 700,
-          lineHeight: '24px',
-          letterSpacing: 0,
-          textTransform: 'none'
+          // color: theme.palette.neutral["70"],
+          // color: '#574766 !important',
+          fontSize: '15px',
+          fontStyle: 'normal',
+          color: '#000000',
+          fontWeight: 500,
+          lineHeight: '23px',
+          // fontWeight: 600,
+          // fontSize: '0.75rem',
+          // letterSpacing: '0.17px',
+          // textTransform: 'uppercase'
         },
         columnSeparator: {
           color: theme.palette.divider
@@ -59,9 +69,10 @@ const DataGrid = theme => {
           }
         },
         row: {
-          '&:hover': { backgroundColor: theme.palette.action.hover },
           '&:last-child': {
-            '& .MuiDataGrid-cell': { borderBottom: 0 }
+            '& .MuiDataGrid-cell': {
+              borderBottom: 0
+            }
           }
         },
         cell: {

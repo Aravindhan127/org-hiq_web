@@ -24,10 +24,10 @@ import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
 const VerticalLayoutWrapper = styled('div')({
   height: '100%',
-  display: 'flex',
+  display: 'flex'
 })
 
-const MainContentWrapper = styled(Box)({ 
+const MainContentWrapper = styled(Box)({
   flexGrow: 1,
   minWidth: 0,
   display: 'flex',
@@ -97,10 +97,10 @@ const VerticalLayout = props => {
           >
             {children}
           </ContentWrapper>
-
-          <DatePickerWrapper sx={{ zIndex: 11 }}>
+          <Footer {...props} />
+          {/* <DatePickerWrapper sx={{ zIndex: 11 }}>
             <Box id='react-datepicker-portal'></Box>
-          </DatePickerWrapper>
+          </DatePickerWrapper> */}
         </MainContentWrapper>
       </VerticalLayoutWrapper>
 

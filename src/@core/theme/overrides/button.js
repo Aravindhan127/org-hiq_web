@@ -6,46 +6,41 @@ const Button = theme => {
     MuiButton: {
       styleOverrides: {
         root: {
-          fontWeight: 600,
-          borderRadius: 12,
-          minHeight: 44,
-          lineHeight: 1.2,
+          fontWeight: 500,
+          borderRadius: 99,
+          lineHeight: 1.71,
           letterSpacing: '0.3px',
-          padding: `${theme.spacing(1.25, 3)}`,
+          padding: `${theme.spacing(1.875, 3)}`,
           textTransform: 'capitalize',
-          background: theme.palette.primary.main,
-          color: theme.palette.primary.contrastText,
-          '&:hover': { background: theme.palette.primary.dark },
-          '& .MuiButton-startIcon, & .MuiButton-endIcon': { marginTop: 0, marginBottom: 0 },
         },
         contained: {
-          boxShadow: theme.shadows[1],
-          padding: `${theme.spacing(1.25, 4)}`
+          boxShadow: theme.shadows[3],
+          padding: `${theme.spacing(1.875, 5.5)}`,
+          color: '#FFF',
+          background: theme.palette.customColors.primaryGradient,
+          '&:hover': {
+            background: 'linear-gradient(90deg,rgb(128, 28, 185) 0%,rgb(238, 79, 151) 80%)',
+          },
         },
         outlined: {
-          padding: `${theme.spacing(1.25, 4)}`,
-          borderColor: theme.palette.primary.main,
-          color: theme.palette.primary.main,
-          '&:hover': { borderColor: theme.palette.primary.dark, backgroundColor: 'rgba(30,42,120,0.06)' }
+          padding: `${theme.spacing(1.625, 5.25)}`
         },
         sizeSmall: {
-          minHeight: 36,
-          padding: `${theme.spacing(0.75, 2)}`,
+          padding: `${theme.spacing(1, 2.25)}`,
           '&.MuiButton-contained': {
-            padding: `${theme.spacing(0.75, 3)}`
+            padding: `${theme.spacing(1, 3.5)}`
           },
           '&.MuiButton-outlined': {
-            padding: `${theme.spacing(0.5, 3)}`
+            padding: `${theme.spacing(0.75, 3.25)}`
           }
         },
         sizeLarge: {
-          minHeight: 48,
-          padding: `${theme.spacing(1.5, 5)}`,
+          padding: `${theme.spacing(2.125, 5.5)}`,
           '&.MuiButton-contained': {
-            padding: `${theme.spacing(1.5, 6)}`
+            padding: `${theme.spacing(2.125, 6.5)}`
           },
           '&.MuiButton-outlined': {
-            padding: `${theme.spacing(1.25, 5.5)}`
+            padding: `${theme.spacing(1.875, 6.25)}`
           }
         }
       }

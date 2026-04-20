@@ -15,16 +15,33 @@ import RecordCircleOutline from 'mdi-material-ui/RecordCircleOutline'
 // ** Configs
 import themeConfig from 'src/configs/themeConfig'
 import Logo from '../../../../../assets/images/Logo.svg'
+import { useAuth } from 'src/hooks/useAuth'
+import { Avatar } from '@mui/material'
 
 // ** Styled Components
+// const MenuHeaderWrapper = styled(Box)(({ theme }) => ({
+//   display: 'flex',
+//   alignItems: 'center',
+//   // justifyContent: 'space-between',
+//   justifyContent: 'center',
+//   paddingRight: theme.spacing(4.5),
+//   transition: 'padding .25s ease-in-out',
+//   minHeight: theme.mixins.toolbar.minHeight
+// }))
+
 const MenuHeaderWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  paddingRight: theme.spacing(3),
+  paddingRight: theme.spacing(4.5),
   transition: 'padding .25s ease-in-out',
-  minHeight: theme.mixins.toolbar.minHeight
-}))
+  // minHeight: theme.mixins.toolbar.minHeight,
+  paddingBottom: '10px',
+  position: 'sticky',  // Keeps it fixed during scroll
+  top: 0,
+  zIndex: 1100, // Ensure it stays above scrollable content
+}));
+
 
 const HeaderTitle = styled(Typography)(({ theme }) => ({
   fontWeight: 600,
@@ -57,6 +74,7 @@ const VerticalNavHeader = props => {
 
   // ** Hooks & Vars
   const theme = useTheme()
+  const { user } = useAuth();
   const { navCollapsed } = settings
   const menuCollapsedStyles = navCollapsed && !navHover ? { opacity: 0 } : { opacity: 1 }
 
@@ -95,7 +113,7 @@ const VerticalNavHeader = props => {
         }}
       />
     )
-
+  console.log("user", user?.orgDetails?.logo)
   return (
     <MenuHeaderWrapper className='nav-header' sx={{ pl: menuHeaderPaddingLeft() }}>
       {userVerticalNavMenuBranding ? (
@@ -103,17 +121,40 @@ const VerticalNavHeader = props => {
       ) : (
         <NavLink to='/' style={{ textDecoration: 'none' }}>
           <StyledLink>
-             <Box
-                component="img"
-                src={Logo}
-                alt="Logo"
-                sx={{
-                  width: { xs: '110px', sm: '140px', md: '160px' },
-                  height: 'auto',
-                  borderRadius: '12px',
-                  p: 2,
-                }}
-              />
+            {/* TODO: Add custom logo */}
+            {/* <Logo /> */}
+            <>
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Box
+                  sx={{
+                    // width: "200px",
+                    height: "90px",
+                    maxHeight: "90px",
+                    // maxWidth: "100%", maxHeight: "80%",
+                    mt: 5,
+                  }}
+                >
+                  {/* <Avatar src={user?.orgDetails?.logo || Logo} sx={{ width: "150px", height: "150px" }} /> */}
+                  <img
+                    src={user?.orgDetails?.logo || Logo}
+                    onError={(e) => {
+                      e.target.onerror = null; // Prevent infinite loop
+                      e.target.src = Logo; // Set fallback image
+                    }}
+                    style={{ width: "100%", height: "100%", borderRadius: "10px" }}
+                    alt="Organization Logo"
+                  />
+                </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 1, wrap: 'nowrap' }}>
+                  <Typography variant='fm-h7' fontWeight={700} color={'#682c8be8'}>
+                    {user?.orgDetails?.orgName || themeConfig.templateName}
+                  </Typography>
+                </Box>
+
+              </Box>
+
+            </>
+
             {/* <svg
               width={30}
               height={25}
@@ -204,5 +245,3 @@ const VerticalNavHeader = props => {
 }
 
 export default VerticalNavHeader
-
-
