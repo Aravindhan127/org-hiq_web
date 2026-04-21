@@ -1,12 +1,12 @@
 // You can toggle between local and production easily
-const ENV = "LOCAL"; // change to "PROD" for 
+const ENV = "PROD"; // change to "PROD" for 
 // const ENV = "SERVER"; // change to "PROD" for production
 
 export const API_BASE_URL = "https://4.150.189.34.sslip.io";
 
 export const VELTECH_BASE_URL = ENV === "LOCAL"
     ? "http://localhost:3001"   // your local subAdmin frontend
-    : "https://veltech-alumni.hiqlynks.com";
+    : "https://org-hiq-subadmin-git-docker-aravindhans-projects-ad04d11b.vercel.app";
 
 // export const MEDIA_URL = "https://d1hj3r7039erwq.cloudfront.net"
 export const ApiEndPoints = {
