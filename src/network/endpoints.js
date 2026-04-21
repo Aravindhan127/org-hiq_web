@@ -2,9 +2,7 @@
 const ENV = "LOCAL"; // change to "PROD" for 
 // const ENV = "SERVER"; // change to "PROD" for production
 
-export const API_BASE_URL = "http://localhost:4003"
-    ? "http://localhost:4003"   // your local API
-    : "https://api.hiqlynks.com";
+export const API_BASE_URL = "http://4.150.189.34:4005";
 
 export const VELTECH_BASE_URL = ENV === "LOCAL"
     ? "http://localhost:3001"   // your local subAdmin frontend

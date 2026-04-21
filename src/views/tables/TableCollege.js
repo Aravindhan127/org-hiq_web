@@ -52,11 +52,14 @@ function TableCollege({
                 .get(ApiEndPoints.AUTH.dashboard_redirect(row.orgId))
                 .then((response) => {
                     console.log("response", response)
-                    const { token, user } = response.data.data;
+                    const { token, user, role, isMasterAdmin, loginType } = response.data.data;
+
+                    // Merge role and isMasterAdmin into user object for easy parsing in sub-admin
+                    const userData = { ...user, role, isMasterAdmin, loginType };
 
                     // Encode token and user data in URL (alternative: localStorage)
                     const encodedToken = encodeURIComponent(token);
-                    const encodedUser = encodeURIComponent(JSON.stringify(user));
+                    const encodedUser = encodeURIComponent(JSON.stringify(userData));
 
                     // Redirect to sub-admin panel  
                     window.open(`${devBaseUrl}/auth-redirect?token=${encodedToken}&user=${encodedUser}`, "_blank");
